@@ -1,23 +1,31 @@
 import { useState } from "react";
-import { addNote } from "../api.js";
+import { addNote } from "../api";
 
-const AddNoteForm = ({ onNoteAdded }) => {
-    const [content, setContent] = useState("");
+interface AddNoteFormProps {
+  onNoteAdded: () => void;
+}
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        if (!content.trim()) return;
-        await addNote(content);
-        setContent("");
-        onNoteAdded();
-    };
+const AddNoteForm: React.FC<AddNoteFormProps> = ({ onNoteAdded }) => {
+  const [content, setContent] = useState<string>("");
 
-    return (
-        <form onSubmit={handleSubmit}>
-            <input value={content} onChange={(e) => setContent(e.target.value)} />
-            <button type="submit">Добавить</button>
-        </form>
-    );
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!content.trim()) return;
+    await addNote(content);
+    setContent("");
+    onNoteAdded();
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <input
+        value={content}
+        onChange={(e) => setContent(e.target.value)}
+        placeholder="Введите заметку..."
+      />
+      <button type="submit">Добавить</button>
+    </form>
+  );
 };
 
 export default AddNoteForm;

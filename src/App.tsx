@@ -1,16 +1,16 @@
-import { useState } from "react";
-import NotesList from './components/NotesList.tsx';
-import AddNoteForm from './components/AddNoteForm';
-import "./App.css"; // Подключаем стили
+import {useState} from "react";
+import NotesList from "./components/NotesList";
+import AddNoteForm from "./components/AddNoteForm";
+import "./App.css";
 
-const App = () => {
-    const [refresh, setRefresh] = useState(false);
+const App: React.FC = () => {
+    const [refresh, setRefresh] = useState<boolean>(false);
 
     return (
-        <div>
+        <div className="container">
             <h1>CRUD Notes</h1>
-            <AddNoteForm onNoteAdded={() => setRefresh((r) => !r)} />
-            <NotesList onRefresh={refresh} />
+            <AddNoteForm onNoteAdded={() => setRefresh((r) => !r)}/>
+            <NotesList onRefresh={refresh}/>
         </div>
     );
 };
